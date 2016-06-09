@@ -1,0 +1,6 @@
+alias ls-hidden='ls -d .*'
+alias rm='rm -i'
+alias cp='cp -i'
+alias mv='mv -i'
+alias gb='cur=$(git rev-parse --abbrev-ref HEAD); git for-each-ref --sort=-committerdate refs/heads/ --format="%(color:reset)  %(refname:short)|%(color:black bold)%(committerdate:relative)%(color:reset)" | column -ts"|" | sed -e "s,  ${cur},$(tput setaf 2)$(tput bold)* ${cur},";'
+
