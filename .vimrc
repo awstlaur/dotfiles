@@ -19,27 +19,14 @@ colorscheme molotov
 let mapleader=","
 " }}}
 
-" Local directories {{{
-set backupdir=~/.vim/backups
-set directory=~/.vim/swaps
-set undodir=~/.vim/undo
-" }}}
-
 " Set some junk {{{
 set autoindent " Copy indent from last line when starting new line
 set backspace=indent,eol,start
 set cursorline " Highlight current line
 set diffopt=filler " Add vertical spaces to keep right and left aligned
-set diffopt+=iwhite " Ignore whitespace changes (focus on code changes)
 set encoding=utf-8 nobomb " BOM often causes trouble
 set esckeys " Allow cursor keys in insert mode
 set expandtab " Expand tabs to spaces
-set foldcolumn=0 " Column to show folds
-set foldenable " Enable folding
-set foldlevel=0 " Close all folds by default
-set foldmethod=syntax " Syntax are used to specify folds
-set foldminlines=0 " Allow folding single lines
-set foldnestmax=5 " Set max fold nesting level
 set formatoptions=
 set formatoptions+=c " Format comments
 set formatoptions+=r " Continue comments by default
@@ -49,11 +36,9 @@ set formatoptions+=n " Recognize numbered lists
 set formatoptions+=2 " Use indent from 2nd line of a paragraph
 set formatoptions+=l " Don't break lines that are already long
 set formatoptions+=1 " Break before 1-letter words
-set gdefault " By default add g flag to search/replace. Add g to toggle
 set hidden " When a buffer is brought to foreground, remember undo history and marks
 set history=1000 " Increase history from 20 default to 1000
 set hlsearch " Highlight searches
-set ignorecase " Ignore case of searches
 set incsearch " Highlight dynamically as pattern is typed
 set laststatus=2 " Always show status line
 set lazyredraw " Don't redraw when we don't have to
@@ -65,7 +50,6 @@ set magic " Enable extended regexes
 set mouse=a " Enable mouse in all in all modes
 set noerrorbells " Disable error bells
 set nojoinspaces " Only insert single space after a '.', '?' and '!' with a join command
-set noshowmode " Don't show the current mode (airline.vim takes care of us)
 set nostartofline " Don't reset cursor to start of line when moving around
 set nowrap " Do not wrap lines
 set nu " Enable line numbers
@@ -105,20 +89,7 @@ set wrapscan " Searches wrap around end of file
 
 " }}}
 
-
 " Configuration -------------------------------------------------------------
-
-" FastEscape {{{
-" Speed up transition from modes
-if ! has('gui_running')
-  set ttimeoutlen=10
-  augroup FastEscape
-    autocmd!
-    au InsertEnter * set timeoutlen=0
-    au InsertLeave * set timeoutlen=1000
-  augroup END
-endif
-" }}}
 
 " General {{{
 augroup general_config
@@ -178,16 +149,6 @@ augroup general_config
   " map <silent> <leader>qs <Esc>:let @/ = ""<CR>
   " }}}
 
-  " Vim on the iPad {{{
-  if &term == "xterm-ipad"
-    nnoremap <Tab> <Esc>
-    vnoremap <Tab> <Esc>gV
-    onoremap <Tab> <Esc>
-    inoremap <Tab> <Esc>`^
-    inoremap <Leader><Tab> <Tab>
-  endif
-  " }}}
-
   " Remap keys for auto-completion menu {{{
   inoremap <expr> <CR>   pumvisible() ? "\<C-y>" : "\<CR>"
   inoremap <expr> <Down> pumvisible() ? "\<C-n>" : "\<Down>"
@@ -244,174 +205,6 @@ augroup general_config
   " }}}
 augroup END
 " }}}
-
-" NERD Commenter {{{
-augroup nerd_commenter
-  autocmd!
-
-  let NERDSpaceDelims=1
-  let NERDCompactSexyComs=1
-  let g:NERDCustomDelimiters = { 'racket': { 'left': ';', 'leftAlt': '#|', 'rightAlt': '|#' } }
-augroup END
-" }}}
-
-" Buffers {{{
-augroup buffer_control
-  autocmd!
-
-  " Prompt for buffer to select (,bs) {{{
-  nnoremap <leader>bs :CtrlPBuffer<CR>
-  " }}}
-
-  " Buffer navigation (,,) (gb) (gB) (,ls) {{{
-  map <Leader>, <C-^>
-  map <Leader>ls :buffers<CR>
-  map gb :bnext<CR>
-  map gB :bprev<CR>
-  " }}}
-
-  " Jump to buffer number (<N>gb) {{{
-  let c = 1
-  while c <= 99
-    execute "nnoremap " . c . "gb :" . c . "b\<CR>"
-    let c += 1
-  endwhile
-  " }}}
-
-  " Close Quickfix window (,qq) {{{
-  map <leader>qq :cclose<CR>
-  " }}}
-augroup END
-" }}}
-
-" Jumping to tags {{{
-augroup jump_to_tags
-  autocmd!
-
-  " Basically, <c-]> jumps to tags (like normal) and <c-\> opens the tag in a new
-  " split instead.
-  "
-  " Both of them will align the destination line to the upper middle part of the
-  " screen.  Both will pulse the cursor line so you can see where the hell you
-  " are.  <c-\> will also fold everything in the buffer and then unfold just
-  " enough for you to see the destination line.
-  nnoremap <c-]> <c-]>mzzvzz15<c-e>`z:Pulse<cr>
-  nnoremap <c-\> <c-w>v<c-]>mzzMzvzz15<c-e>`z:Pulse<cr>
-
-  " Pulse Line (thanks Steve Losh)
-  function! s:Pulse() " {{{
-    redir => old_hi
-    silent execute 'hi CursorLine'
-    redir END
-    let old_hi = split(old_hi, '\n')[0]
-    let old_hi = substitute(old_hi, 'xxx', '', '')
-
-    let steps = 8
-    let width = 1
-    let start = width
-    let end = steps * width
-    let color = 233
-
-    for i in range(start, end, width)
-      execute "hi CursorLine ctermbg=" . (color + i)
-      redraw
-      sleep 6m
-    endfor
-    for i in range(end, start, -1 * width)
-      execute "hi CursorLine ctermbg=" . (color + i)
-      redraw
-      sleep 6m
-    endfor
-
-    execute 'hi ' . old_hi
-  endfunction " }}}
-
-  command! -nargs=0 Pulse call s:Pulse()
-augroup END
-" }}}
-
-" Highlight Interesting Words {{{
-augroup highlight_interesting_word
-  autocmd!
-  " This mini-plugin provides a few mappings for highlighting words temporarily.
-  "
-  " Sometimes you're looking at a hairy piece of code and would like a certain
-  " word or two to stand out temporarily.  You can search for it, but that only
-  " gives you one color of highlighting.  Now you can use <leader>N where N is
-  " a number from 1-6 to highlight the current word in a specific color.
-  function! HiInterestingWord(n) " {{{
-    " Save our location.
-    normal! mz
-
-    " Yank the current word into the z register.
-    normal! "zyiw
-
-    " Calculate an arbitrary match ID.  Hopefully nothing else is using it.
-    let mid = 86750 + a:n
-
-    " Clear existing matches, but don't worry if they don't exist.
-    silent! call matchdelete(mid)
-
-    " Construct a literal pattern that has to match at boundaries.
-    let pat = '\V\<' . escape(@z, '\') . '\>'
-
-    " Actually match the words.
-    call matchadd("InterestingWord" . a:n, pat, 1, mid)
-
-    " Move back to our original location.
-    normal! `z
-  endfunction " }}}
-
-  " Mappings {{{
-  nnoremap <silent> <leader>1 :call HiInterestingWord(1)<cr>
-  nnoremap <silent> <leader>2 :call HiInterestingWord(2)<cr>
-  nnoremap <silent> <leader>3 :call HiInterestingWord(3)<cr>
-  nnoremap <silent> <leader>4 :call HiInterestingWord(4)<cr>
-  nnoremap <silent> <leader>5 :call HiInterestingWord(5)<cr>
-  nnoremap <silent> <leader>6 :call HiInterestingWord(6)<cr>
-  " }}}
-
-  " Default Highlights {{{
-  hi def InterestingWord1 guifg=#000000 ctermfg=16 guibg=#ffa724 ctermbg=214
-  hi def InterestingWord2 guifg=#000000 ctermfg=16 guibg=#aeee00 ctermbg=154
-  hi def InterestingWord3 guifg=#000000 ctermfg=16 guibg=#8cffba ctermbg=121
-  hi def InterestingWord4 guifg=#000000 ctermfg=16 guibg=#b88853 ctermbg=137
-  hi def InterestingWord5 guifg=#000000 ctermfg=16 guibg=#ff9eb8 ctermbg=211
-  hi def InterestingWord6 guifg=#000000 ctermfg=16 guibg=#ff2c4b ctermbg=195
-  " }}}
-augroup END
-" }}}
-
-" Word Processor Mode {{{
-augroup word_processor_mode
-  autocmd!
-
-  function! WordProcessorMode() " {{{
-    setlocal formatoptions=t1
-    map j gj
-    map k gk
-    setlocal smartindent
-    setlocal spell spelllang=en_ca
-    setlocal noexpandtab
-    setlocal wrap
-    setlocal linebreak
-    Goyo 100
-  endfunction " }}}
-  com! WP call WordProcessorMode()
-augroup END
-" }}}
-
-" Restore Cursor Position {{{
-augroup restore_cursor
-  autocmd!
-
-  autocmd BufReadPost *
-    \ if line("'\"") > 1 && line("'\"") <= line("$") |
-    \   exe "normal! g`\"" |
-    \ endif
-augroup END
-" }}}
-
 
 " Filetypes -------------------------------------------------------------
 
@@ -522,130 +315,3 @@ augroup filetype_zsh
 augroup END
 " }}}
 
-
-" Plugin Configuration -------------------------------------------------------------
-
-" Airline.vim {{{
-augroup airline_config
-  autocmd!
-  let g:airline_powerline_fonts = 1
-  let g:airline_enable_syntastic = 1
-  let g:airline#extensions#tabline#buffer_nr_format = '%s '
-  let g:airline#extensions#tabline#buffer_nr_show = 1
-  let g:airline#extensions#tabline#enabled = 1
-  let g:airline#extensions#tabline#fnamecollapse = 0
-  let g:airline#extensions#tabline#fnamemod = ':t'
-augroup END
-" }}}
-
-" CtrlP.vim {{{
-augroup ctrlp_config
-  autocmd!
-  let g:ctrlp_clear_cache_on_exit = 0 " Do not clear filenames cache, to improve CtrlP startup
-  let g:ctrlp_lazy_update = 350 " Set delay to prevent extra search
-  let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' } " Use python fuzzy matcher for better performance
-  let g:ctrlp_match_window_bottom = 0 " Show at top of window
-  let g:ctrlp_max_files = 0 " Set no file limit, we are building a big project
-  let g:ctrlp_switch_buffer = 'Et' " Jump to tab AND buffer if already open
-  let g:ctrlp_open_new_file = 'r' " Open newly created files in the current window
-  let g:ctrlp_open_multiple_files = 'ij' " Open multiple files in hidden buffers, and jump to the first one
-augroup END
-" }}}
-
-" Silver Searcher {{{
-augroup ag_config
-  autocmd!
-
-  if executable("ag")
-    " Note we extract the column as well as the file and line number
-    set grepprg=ag\ --nogroup\ --nocolor\ --column
-    set grepformat=%f:%l:%c%m
-
-    " Have the silver searcher ignore all the same things as wilgignore
-    let b:ag_command = 'ag %s -i --nocolor --nogroup'
-
-    for i in split(&wildignore, ",")
-      let i = substitute(i, '\*/\(.*\)/\*', '\1', 'g')
-      let b:ag_command = b:ag_command . ' --ignore "' . substitute(i, '\*/\(.*\)/\*', '\1', 'g') . '"'
-    endfor
-
-    let b:ag_command = b:ag_command . ' --hidden -g ""'
-    let g:ctrlp_user_command = b:ag_command
-  endif
-augroup END
-" }}}
-
-" EasyAlign.vim {{{
-augroup easy_align_config
-  autocmd!
-  vmap <Enter> <Plug>(EasyAlign) " Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
-  nmap <Leader>a <Plug>(EasyAlign) " Start interactive EasyAlign for a motion/text object (e.g. <Leader>aip)
-augroup END
-" }}}
-
-" Notes.vim {{{
-augroup notes_config
-  autocmd!
-  let g:notes_directories = ['~/Dropbox/Notes']
-augroup END
-" }}}
-
-" RainbowParenthesis.vim {{{
-augroup rainbow_parenthesis_config
-  autocmd!
-  nnoremap <leader>rp :RainbowParenthesesToggle<CR>
-augroup END
-" }}}
-
-" Syntastic.vim {{{
-augroup syntastic_config
-  autocmd!
-  let g:syntastic_error_symbol = '✗'
-  let g:syntastic_warning_symbol = '⚠'
-  let g:syntastic_ruby_checkers = ['mri', 'rubocop']
-augroup END
-" }}}
-
-
-" Plugins -------------------------------------------------------------
-
-" Load plugins {{{
-call plug#begin('~/.vim/plugged')
-
-Plug 'ap/vim-css-color'
-Plug 'bling/vim-airline'
-Plug 'FelikZ/ctrlp-py-matcher'
-Plug 'guns/vim-clojure-static'
-Plug 'joker1007/vim-ruby-heredoc-syntax'
-Plug 'junegunn/vim-easy-align'
-Plug 'junegunn/vim-emoji'
-Plug 'junegunn/goyo.vim'
-Plug 'kchmck/vim-coffee-script'
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'kien/rainbow_parentheses.vim'
-Plug 'msanders/snipmate.vim'
-Plug 'mustache/vim-mustache-handlebars'
-Plug 'nathanaelkane/vim-indent-guides'
-Plug 'oplatek/Conque-Shell'
-Plug 'pangloss/vim-javascript'
-Plug 'rking/ag.vim'
-Plug 'scrooloose/nerdcommenter'
-Plug 'scrooloose/syntastic'
-Plug 'slim-template/vim-slim', { 'for': 'slim' }
-Plug 'thoughtbot/vim-rspec'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-haml'
-Plug 'tpope/vim-markdown',     { 'for': 'markdown' }
-Plug 'tpope/vim-rails'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-surround'
-Plug 'vim-ruby/vim-ruby'
-Plug 'vim-scripts/fish.vim',   { 'for': 'fish' }
-Plug 'vim-scripts/jade.vim',   { 'for': 'jade' }
-Plug 'wavded/vim-stylus',      { 'for': 'stylus' }
-Plug 'wlangstroth/vim-racket'
-Plug 'xolox/vim-misc'
-Plug 'xolox/vim-notes'
-
-call plug#end()
-" }}}
