@@ -1,9 +1,3 @@
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-################################################################################
-## Oh My Zsh ###################################################################
-################################################################################
-
 # Path to your oh-my-zsh installation.
 export ZSH=/home/alex/.oh-my-zsh
 
@@ -31,3 +25,5 @@ plugins=(git nvm heroku systemadmin)
 DEFAULT_USER=alex # for use with "agnoster" theme
 
 source $ZSH/oh-my-zsh.sh
+
+alias zshconfig='vim ~/.zshrc'
