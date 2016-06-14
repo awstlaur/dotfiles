@@ -1,3 +1,5 @@
+[[ -n "$PS1" ]] && source ~/.profile
+
 # Path to your oh-my-zsh installation.
 export ZSH=/home/alex/.oh-my-zsh
 
@@ -27,3 +29,5 @@ DEFAULT_USER=alex # for use with "agnoster" theme
 source $ZSH/oh-my-zsh.sh
 
 alias zshconfig='vim ~/.zshrc'
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
