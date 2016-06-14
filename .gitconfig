@@ -1,21 +1,10 @@
+[push]
+	default = simple
 [alias]
-	c = commit -am
-	up = pull
-	p = push
-	s = status -s
-	sclone = clone --depth=1
-	co = checkout
-	df = diff --color --color-words --abbrev
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
 
-	# Show the diff between the latest commit and the current state
-	d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
 
-	reup = rebase-update # depot_tools specific
-
-[core]
-	excludesfile = ~/.gitignore
-	attributesfile = ~/.gitattributes
+#https://github.com/paulirish/dotfiles
 
 [pager]
 	# insanely beautiful diffs ==> npm install -g diff-so-fancy
@@ -49,39 +38,7 @@
 	changed = green
 	untracked = cyan
 
-# git mergetool
-[merge]
-	tool = opendiff
-
-# rewrites of repo paths
-[url "git@github.com:"]
-	insteadOf = "gh:"
-	insteadOf = "git://github.com"
-	pushInsteadOf = "github:"
-	pushInsteadOf = "git://github.com/"
-    pushInsteadOf = "https://github.com/"
-[url "git@gist.github.com:"]
-	insteadOf = "gst:"
-	pushInsteadOf = "gist:"
-	pushInsteadOf = "git://gist.github.com/"
-	pushInsteadOf = "https://gist.github.com/"
-
-# correct typos
-[help]
-	autocorrect = 1
-
-# push easily. http://stackoverflow.com/a/23918418/89484
-[push]
-	default = current
-
 # use separate file for username / github token / etc
 [include]
-  path = ~/.gitconfig.local
+	path = ~/.gitconfig.local
 
-[init]
-	templatedir = ~/.git_template
-
-[filter "lfs"]
-	clean = git-lfs clean %f
-	smudge = git-lfs smudge %f
-	required = true
