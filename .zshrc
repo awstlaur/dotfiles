@@ -28,6 +28,10 @@ DEFAULT_USER=alex # for use with "agnoster" theme
 
 source $ZSH/oh-my-zsh.sh
 
-alias zshconfig='vim ~/.zshrc'
-
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# The next line updates PATH for the Google Cloud SDK.
+source "$HOME/google-cloud-sdk/path.zsh.inc"
+
+# The next line enables shell command completion for gcloud.
+source "$HOME/google-cloud-sdk/completion.zsh.inc"

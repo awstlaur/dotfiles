@@ -42,3 +42,5 @@
 [include]
 	path = ~/.gitconfig.local
 
+[core]
+	trustctime = false
