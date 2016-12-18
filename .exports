@@ -3,8 +3,7 @@
 ################################################################################
 
 PATH=$PATH:$HOME/bin
-PATH=$PATH:$HOME/.cabal/bin
-PATH=$PATH:/usr/local/heroku/bin
+PATH=$PATH:$HOME/.local/bin
 export PATH
 
 # we do not _load_ nvm here, as oh-my-zsh has a plugin to take care of that.
