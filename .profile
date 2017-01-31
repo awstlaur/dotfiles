@@ -9,6 +9,8 @@
 # .aliases   is for shell-agnostic aliases
 # .functions is for shell-agnostic functions
 #
-for file in $HOME/.{extra,exports,aliases,functions}; do
+
+for file in $HOME/.{exports,aliases,functions,extra}; do
+    echo "checking $file"
     [ -r "$file" ] && source "$file"
 done

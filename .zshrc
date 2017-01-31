@@ -1,4 +1,8 @@
-[[ -n "$PS1" ]] && source ~/.profile
+echo "source .zshrc"
+
+# zsh is my login shell, hence, .zprofile
+# is sourced before .zshrc
+# [[ -n "$PS1" ]] && source ~/.zprofile
 
 # Path to your oh-my-zsh installation.
 export ZSH=/home/alex/.oh-my-zsh
@@ -28,4 +32,3 @@ DEFAULT_USER=alex # for use with "agnoster" theme
 
 source $ZSH/oh-my-zsh.sh
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

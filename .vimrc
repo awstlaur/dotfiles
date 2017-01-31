@@ -43,7 +43,6 @@ set switchbuf=""
 set title " Show the filename in the window titlebar
 set ttyfast " Send more characters at a given time
 set ttymouse=xterm " Set mouse type to xterm
-set undofile " Persistent Undo
 set visualbell " Use visual bell instead of audible bell (annnnnoying)
 " }}}
 
@@ -68,4 +67,6 @@ augroup general_config
   " }}}
 augroup END
 " }}}
+
+au BufNewFile,BufRead *.arr setlocal ft=pyret
 

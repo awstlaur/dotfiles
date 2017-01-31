@@ -1,1 +1,2 @@
-emulate sh -c '. ~/.profile'
+echo "source ~/.zprofile"
+source ~/.profile
