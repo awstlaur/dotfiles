@@ -1,4 +1,3 @@
-echo "source .zshrc"
 
 # zsh is my login shell, hence, .zprofile
 # is sourced before .zshrc
