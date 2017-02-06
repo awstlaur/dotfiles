@@ -11,6 +11,5 @@
 #
 
 for file in $HOME/.{exports,aliases,functions,extra}; do
-    echo "checking $file"
     [ -r "$file" ] && source "$file"
 done
