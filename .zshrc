@@ -1,7 +1,4 @@
-
-# zsh is my login shell, hence, .zprofile
-# is sourced before .zshrc
-# [[ -n "$PS1" ]] && source ~/.zprofile
+[[ -n "$PS1" ]] && source ~/.zprofile
 
 # Path to your oh-my-zsh installation.
 export ZSH=/home/alex/.oh-my-zsh
