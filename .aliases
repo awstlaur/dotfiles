@@ -4,4 +4,4 @@ alias cp='cp -i'
 alias mv='mv -i'
 alias gbt='cur=$(git rev-parse --abbrev-ref HEAD); git for-each-ref --sort=-committerdate refs/heads/ --format="%(color:reset)  %(refname:short)|%(color:black bold)%(committerdate:relative)%(color:reset)" | column -ts"|" | sed -e "s,  ${cur},$(tput setaf 2)$(tput bold)* ${cur},";'
 alias git-ws='git diff-tree --check $(git hash-object -t tree /dev/null) HEAD'
-
+#alias g++='colourfy /usr/bin/g++-4.7'
