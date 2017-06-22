@@ -1,0 +1,1 @@
+/home/alex/repos/pyret-lang/tools/vim/syntax/pyret.vim
