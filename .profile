@@ -14,4 +14,3 @@ for file in $HOME/.{exports,aliases,functions,extra}; do
     [ -r "$file" ] && source "$file"
 done
 
-export PATH="$HOME/.cargo/bin:$PATH"
