@@ -28,3 +28,5 @@ DEFAULT_USER=alex # for use with "agnoster" theme
 
 source $ZSH/oh-my-zsh.sh
 
+eval `dircolors ~/.dircolors`
+
