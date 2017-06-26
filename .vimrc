@@ -39,3 +39,7 @@ set foldmethod=indent   " fold based on indent level
 " move vertically by visual line
 nnoremap j gj
 nnoremap k gk
+
+" Pyret Syntax Highlighting
+au BufNewFile,BufRead *.arr setlocal ft=pyret
+au BufNewFile,BufRead *.jarr setlocal ft=javascript
