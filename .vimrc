@@ -1,5 +1,3 @@
-" Many settings taken from: https://dougblack.io/words/a-good-vimrc.html
-
 " Colors
 syntax enable           " enable syntax processing
 set background=dark     " background
@@ -38,69 +36,6 @@ set foldmethod=indent   " fold based on indent level
 
 " Movement
 
-"" move vertically by visual line
+" move vertically by visual line
 nnoremap j gj
 nnoremap k gk
-
-"" move to beginning/end of line
-"nnoremap B ^
-"nnoremap E $
-
-"" $/^ doesn't do anything
-"nnoremap $ <nop>
-"nnoremap ^ <nop>
-
-" highlight last inserted text
-nnoremap gV `[v`]
-
-" Leader Shortcuts
-let mapleader=","       " set <leader> to ,
-
-"" jk is escape
-" inoremap jk <esc>
-
-"" toggle gundo
-" nnoremap <leader>u :GundoToggle<CR>
-
-"" edit vimrc/zshrc and load vimrc bindings
-" nnoremap <leader>ev :vsp $MYVIMRC<CR>
-" nnoremap <leader>ez :vap ~/.zshrc<CR>
-" nnoremap <leader>sv :source $MYVIMRC<CR>
-
-"" save session
-" nnoremap<leader>s :mksession<CR>
-
-augroup configgroup
-    autocmd!
-    autocmd VimEnter * highlight clear SignColumn
-    autocmd BufWritePre *.php,*.py,*.js,*.txt,*.hs,*.java,*.md
-                \:call <SID>StripTrailingWhitespaces()
-    autocmd FileType java setlocal noexpandtab
-    autocmd FileType java setlocal list
-    autocmd FileType java setlocal listchars=tab:+\ ,eol:-
-    autocmd FileType java setlocal formatprg=par\ -w80\ -T4
-    autocmd FileType php setlocal expandtab
-    autocmd FileType php setlocal list
-    autocmd FileType php setlocal listchars=tab:+\ ,eol:-
-    autocmd FileType php setlocal formatprg=par\ -w80\ -T4
-    autocmd FileType ruby setlocal tabstop=2
-    autocmd FileType ruby setlocal shiftwidth=2
-    autocmd FileType ruby setlocal softtabstop=2
-    autocmd FileType ruby setlocal commentstring=#\ %s
-    autocmd FileType python setlocal commentstring=#\ %s
-    autocmd BufEnter *.cls setlocal filetype=java
-    autocmd BufEnter *.zsh-theme setlocal filetype=zsh
-    autocmd BufEnter Makefile setlocal noexpandtab
-    autocmd BufEnter *.sh setlocal tabstop=2
-    autocmd BufEnter *.sh setlocal shiftwidth=2
-    autocmd BufEnter *.sh setlocal softtabstop=2
-augroup END
-
-" Backups
-set backup
-set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
-set backupskip=/tmp/*,/private/tmp/*
-set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
-set writebackup
-
-
