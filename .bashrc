@@ -1,4 +1,4 @@
-[ -n "$PS1" ] && source ~/.bash_profile
+source $HOME/.aliases
 
 /bin/zsh
 

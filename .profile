@@ -25,16 +25,6 @@ export LANG="en_US"
 ## Color #######################################################################
 ################################################################################
 
-## Generic colouriser; depends on grc
-GRC=`which grc`
-if [ "$TERM" != dumb ] && [ -n "$GRC" ]
-    then
-        alias colourify="$GRC -es --colour=auto"
-        alias configure='colourify ./configure'
-        for app in {diff,make,gmake,gcc,g++,ping,traceroute}; do
-            alias "$app"='colourify '$app
-    done
-fi
 
 ### LESS ###
 # Enable syntax-highlighting in less.

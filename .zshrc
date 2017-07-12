@@ -1,5 +1,3 @@
-[[ -n "$PS1" ]] && source ~/.zprofile
-
 # Path to your oh-my-zsh installation.
 export ZSH=/home/alex/.oh-my-zsh
 
@@ -20,13 +18,16 @@ COMPLETION_WAITING_DOTS="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git nvm heroku systemadmin)
+#plugins=(git nvm heroku systemadmin)
+plugins=()
 
 # User configuration
 
 DEFAULT_USER=alex # for use with "agnoster" theme
 
 source $ZSH/oh-my-zsh.sh
+
+source $HOME/.aliases
 
 eval `dircolors ~/.dircolors`
 

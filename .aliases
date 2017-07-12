@@ -6,6 +6,10 @@ alias cp='cp -i'
 alias mv='mv -i'
 
 # Git fun
+alias g='git'
+
+alias gco='git checkout'
+
 alias gbt="cur=\$(git rev-parse --abbrev-ref HEAD); \
 git for-each-ref --sort=-committerdate refs/heads/ --format=\
 \"%(color:reset)%(refname:short)|%(color:black bold)%(committerdate:relative)\
@@ -18,3 +22,13 @@ alias gws='git diff-tree --check $(git hash-object -t tree /dev/null) HEAD'
 alias cb='cargo build'
 
 alias cr='cargo run'
+
+# Generic colouriser; depends on grc
+GRC=`which grc`
+if [ "$TERM" != dumb ] && [ -n "$GRC" ]
+    then
+        alias colourify="$GRC -es --colour=auto"
+        for app in {diff,make,gmake,gcc,g++,ping,traceroute}; do
+            alias "$app"='colourify '$app
+    done
+fi
