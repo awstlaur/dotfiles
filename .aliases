@@ -28,7 +28,7 @@ GRC=`which grc`
 if [ "$TERM" != dumb ] && [ -n "$GRC" ]
     then
         alias colourify="$GRC -es --colour=auto"
-        for app in {diff,make,gmake,gcc,g++,ping,traceroute}; do
+        for app in {diff,gcc,g++,ping,traceroute}; do
             alias "$app"='colourify '$app
     done
 fi
