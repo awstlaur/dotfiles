@@ -3,12 +3,16 @@
 
 [alias]
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
+	d = diff
+	co = checkout
+	ds = diff --staged
+	s = status
 
 [color]
 	ui = always
 
 [core]
-	pager = "diff-so-fancy | less --tabs=4 -RFX"
+	pager = "$(npm bin)/diff-so-fancy | less --tabs=4 -RFX"
 
 [include]
 	path = ~/.gitconfig.local

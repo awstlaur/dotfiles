@@ -4,6 +4,9 @@ execute pathogen#infect()
 " Colors
 syntax enable           " enable syntax processing
 set background=dark     " background
+
+let g:solarized_termcolors=16
+set t_Co=16
 colorscheme solarized   " color scheme
 
 " Spaces And Tabs
